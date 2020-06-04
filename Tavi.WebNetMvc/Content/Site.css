@@ -1,0 +1,184 @@
+﻿body {
+    padding-top: 40px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+
+#formview {
+    margin: 20px;
+    padding: 0px;
+}
+
+    #formview .title {
+        text-transform: uppercase;
+        padding-top: 7px;
+        font-weight: bold;
+    }
+
+
+.sett {
+    background: rgba(0, 0, 0, 0) url("Images/sprite_osv2.png") no-repeat scroll -275px -145px;
+    cursor: pointer;
+    height: 20px;
+    /* margin: 3px 5px 0 3px;*/
+    opacity: 0.3;
+    width: 20px;
+}
+
+.dropdown-menu .sett_dropdown-caret {
+    margin-top: 11px;
+}
+
+.dropdown-menu {
+    background-clip: padding-box;
+    background-color: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 4px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.176);
+    display: none;
+    float: left;
+    font-size: 14px;
+    left: 0;
+    list-style: outside none none;
+    margin: 2px 0 0;
+    min-width: 160px;
+    padding: 5px 0;
+    position: absolute;
+    top: 100%;
+    z-index: 1000;
+}
+
+.pop_arrow_new {
+    background: rgba(0, 0, 0, 0) url("Images/arrow.png") no-repeat scroll 0 0;
+    height: 12px;
+    margin-left: 12px;
+    margin-top: -17px;
+    position: absolute;
+    width: 24px;
+    z-index: 1000000;
+}
+
+.btnThemMoi {
+    position: fixed;
+    right: 4%;
+    top: 65%;
+    z-index: 9;
+}
+
+.ctask_ttip {
+    display: inline-block;
+    height: 1px;
+    margin: 0;
+    opacity: 0;
+    position: relative;
+    text-align: right;
+    transition: opacity 150ms cubic-bezier(0.4, 0, 1, 1) 0s;
+    width: 1px;
+}
+
+.btn_plus a {
+    background: #f6911d none repeat scroll 0 0;
+    border-radius: 50%;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.14), 0 4px 8px rgba(0, 0, 0, 0.28);
+    box-sizing: content-box;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 34px;
+    height: 56px;
+    outline: medium none;
+    pointer-events: auto;
+    text-align: center;
+    text-decoration: none;
+    transform: scale(1) rotate(360deg);
+    transition: transform 150ms cubic-bezier(0.4, 0, 1, 1) 0s;
+    width: 56px;
+}
+
+    .btn_plus a:hover {
+        box-shadow: 0 0 6px rgba(0, 0, 0, 0.16), 0 6px 12px rgba(0, 0, 0, 0.32);
+        transition: box-shadow 150ms cubic-bezier(0, 0, 0.2, 1) 0s;
+    }
+
+.ctask_ttip .label {
+    background: rgba(70, 70, 70, 0.9) none repeat scroll 0 0;
+    border-radius: 2px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+    display: inline-block;
+    font-size: 13px;
+    padding: 6px 8px;
+    position: absolute;
+    right: 8px;
+    top: -35px;
+    color: #ffffff;
+    min-width: 115px;
+}
+
+.btnThemMoi:hover .ctask_ttip {
+    opacity: 1;
+    transition: opacity 150ms cubic-bezier(0, 0, 0.2, 1) 0s;
+}
+
+.btnThemMoi:hover .ctask_ttip {
+    opacity: 1;
+    transition: opacity 150ms cubic-bezier(0, 0, 0.2, 1) 0s;
+}
+
+.btn_plus a:hover {
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.16), 0 6px 12px rgba(0, 0, 0, 0.32);
+    transition: box-shadow 150ms cubic-bezier(0, 0, 0.2, 1) 0s;
+}
+
+.required, .error {
+    color: red;
+}
+
+.grid {
+    width: 100%;
+}
+
+.grid {
+    border-color: grey;
+}
+
+    .grid tr th {
+        border: 1px solid #e9e9e9;
+        text-align: center;
+        background: #f9f9f9;
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+
+
+
+.grid tr td {
+    padding-left: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border: 1px solid #f3f3f3;
+}
+
+.grid tr.gridrow td {
+}
+
+.grid tr.gridrow_alternate td {
+    background: #fcfcfc;
+}
+.row
+{
+    margin-bottom:5px;
+    margin-top:5px;
+}

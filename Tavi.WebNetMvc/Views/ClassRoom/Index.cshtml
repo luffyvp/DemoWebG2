@@ -1,0 +1,125 @@
+﻿@model IPagedList<ClassRoom>
+@using PagedList;
+@using PagedList.Mvc;
+@using MvcContrib.UI.Grid;
+@using Tavi.NetMvc.Models;
+@using Tavi.NetMvc.HtmlEx;
+
+@{
+    ViewBag.Title = "Danh sách Lớp Học";
+}
+    <div id="formview">
+        @using (Html.BeginForm())
+        {
+            @Html.Hidden("Page")
+            <div class="form-group">
+                <div class="title">Danh Sách Lớp Học</div>
+            </div>
+            <div class="form-group">
+                <div class="form-search">
+                    <div class="row">
+                        <div class="col-md-5">
+                            @Html.TextBox("ClassRoomID", ViewBag.ClassRoomID as string, new { @class = "form-control", @placeholder = "Nhập ID Lớp Học" })
+                        </div>
+                        <div class="col-md-5">
+                            @Html.TextBox("ClassName", ViewBag.ClassName as string, new { @class = "form-control", @placeholder = "Nhập Tên Lớp Học" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.Button("Tìm kiếm", "btn btn-primary", "btnTimKiem", "fa fa-search-plus")
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-button">
+                    @Html.Button("Thêm mới Lớp Học", "btn btn-primary", "btnAdd", "fa fa-plus")
+                    @Html.Button("Xóa Lớp Học", "btn btn-danger", "btnDel", "fa fa-trash-o")
+                    @Html.Button("Hiển Thị Danh Sách Sinh Viên", "btn btn-primary", "btnSinhVien", "&raquo")
+                    @Html.Button("Hiển Thị Danh Sách Khoa Ngành", "btn btn-primary", "btnKhoa", "&raquo")
+                </div>
+            </div>
+            <div class="form-group">
+                @if (TempData["StatusMessage"] != null)
+                {
+                    <div id="Tempdata">
+                        <h4>
+
+                            @TempData["StatusMessage"]
+                        </h4>
+
+                    </div>
+                }
+                else
+                {
+                    <div id="Tempdata" hidden>
+                        <h4>
+
+                            @TempData["StatusMessage"]
+                        </h4>
+
+                    </div>
+                }
+            </div>
+            <div class="form-group">
+                @Html.Grid(Model).Columns(column =>
+           {
+               column.For(m => Html.htmlCheckBox("cbxItem", m.ClassRoomID)).Named(Html.htmlCheckBox("cbxList").ToString()).Attributes(style => "width:5%");
+               column.For(m => m.ClassRoomID).Named("ID Lớp Học").Attributes(style => "width:10%");
+               column.For(m => Html.ActionLink(m.ClassName, "Add", new { id = m.ClassRoomID })).Named("Mã Lớp Học").Attributes(style => "width:10%");
+               column.For(m => m.ClassName).Named("Tên Lớp Học").Attributes(style => "width: 30%");
+               column.For(m => m.Department.DepartmentName).Named("Khoa Ngành").Attributes(style => "width: 30%");
+               column.For(m => m.Status == true ? "Còn Sử Dụng" : "Không Sử Dụng").Named("Trạng Thái").Attributes(style => "width: 20% ");
+               column.For(m => new MvcHtmlString("<a onclick='XoaDuLieu(" + m.ClassRoomID + ")'>Xóa</a>")).Named("Trạng thái").Attributes(style => "width:20%");
+           }).Empty("Chưa có dữ liệu Lớp Học")
+            </div>
+            <div class="form-group">
+                @Html.PagedListPager(Model, PageCurrent => @Url.Action("Index", new { PageCurrent = PageCurrent, ClassRoomID = ViewBag.ClassRoomID, ClassName = ViewBag.ClasName }), PagedListRenderOptions.PageNumbersOnly)
+            </div>
+        }
+    </div>
+    <div id="Create" class="btnThemMoi">
+        <div class="btn_plus">
+            <div class="ctask_ttip">
+                <span class="label label-default">Thêm mới Lớp Học</span>
+            </div>
+            <a>
+                <img src="/Content/Images/plusct.png" class="add_icn">
+            </a>
+        </div>
+    </div>
+<script language="javascript" type="text/javascript">
+    $(document).ready(function () {
+        $('#btnTimKiem').click(function () {
+            $("#formview form").submit();
+        });
+        $('#btnDel').click(function () {
+           var checked = $("input:checked[name='cbxItem']");
+            if (checked.length > 0) {
+                $("#formview form").attr('action', '@Url.Action("Delete")');
+                $("#formview form").submit();
+            } else {
+                alert("Bạn phải chọn lớp học cần xóa");
+            }
+
+        });
+        $('#Create').click(function () {
+            window.location = '@Url.Action("Add")';
+        });
+        $('#btnAdd').click(function () {
+            window.location = '@Url.Action("Add")';
+        });
+        $('#Tempdata').hide(4200);
+        $('#btnKhoa').click(function () {
+            window.location = 'https://localhost:44306/Department';
+        })
+        $('#btnSinhVien').click(function () {
+            window.location = 'https://localhost:44306/Student';
+        })
+    });
+    function XoaDuLieu(id) {
+        // call ajax to delete
+        console.log(id);
+    }
+</script>
+
+

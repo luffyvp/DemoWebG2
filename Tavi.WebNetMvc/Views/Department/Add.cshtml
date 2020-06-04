@@ -1,0 +1,81 @@
+﻿@model Tavi.NetMvc.Models.Department
+@using Tavi.NetMvc.HtmlEx;
+
+        <div id="formview">
+            @using (Html.BeginForm())
+            {
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-3">
+                            @Html.Label("Tên Khoa Ngành:", new { @class = "control-label" })
+                            <span class="required"> (*)</span>
+                        </div>
+                        <div class="col-md-3">
+                            @Html.TextBox("DepartmentName", null, new { @class = "form-control" })
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 setValue">
+                            @Html.Label("Ghi chú:", new { @class = "control-label" })
+
+                        </div>
+                        <div class="col-md-9">
+                            @Html.TextArea("Description", null, new { @class = "form-control" })
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                        </div>
+                        <div class="col-md-9">
+                            @Html.CheckBox("Status")
+                            @Html.Label("Còn sử dụng:", new { @class = "control-label" })
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        @Html.Button("Thêm Mới", "btn btn-primary", "btnGhiLai", "fa fa-floppy-o")
+                        @Html.Button("Quay lại", "btn btn-default", "btnQuayLai", "fa fa-arrow-left")
+                    </div>
+                </div>
+            }
+        </div>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script type="text/javascript" language="javascript">
+    $("#formview form").validate({
+        messages: {
+            DepartmentName: {
+                required: "Tên Khoa Ngành không được để trống!"
+            }
+        },
+        rules: {
+            DepartmentName: {
+                required: true
+            }
+        }
+    })
+    function Test(item) {
+        $.ajax({
+            url: '@Url.Action("Test")',
+            data: {
+                p2:item
+            },
+            success: function (data) {
+                console.log(data);
+                $("#testId").html(data);
+            }
+        })
+    }
+    $(document).ready(function () {
+        $('#btnQuayLai').click( function() {
+            window.history.back();
+        });
+        $('#btnGhiLai').click(function () {
+            $("#formview form").submit();
+        });
+
+    });
+</script>

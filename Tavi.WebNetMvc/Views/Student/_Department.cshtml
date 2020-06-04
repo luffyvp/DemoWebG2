@@ -1,0 +1,10 @@
+﻿@model List<SelectListItem>
+
+
+@Html.DropDownList("ListDepartmentId", null, "------- Chọn khoa Ngành-------", new { @class = "form-control" })
+    <script type="text/javascript" language="javascript">
+    $('#ListDepartmentId').change(function () {
+        LisClassRoom($(this).val(), null);
+        $("#ListDepartmentId").val($(this).val());
+    });
+    </script>

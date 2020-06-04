@@ -1,0 +1,128 @@
+﻿@model IPagedList<Department>
+@using PagedList;
+@using PagedList.Mvc;
+@using MvcContrib.UI.Grid;
+@using Tavi.NetMvc.Models;
+@using Tavi.NetMvc.HtmlEx;
+
+@{
+    ViewBag.Title = "Danh sách Khoa Ngành";
+}
+    <div id="formview">
+        @using (Html.BeginForm())
+        {
+            @Html.Hidden("Page")
+            <div class="form-group">
+                <div class="title">Danh sách Khoa Ngành</div>
+            </div>
+            <div class="form-group">
+                <div class="form-search">
+                    <div class="row">
+                        <div class="col-md-5">
+                            @Html.TextBox("DepartmentID", ViewBag.DepartmentID as string, new { @class = "form-control", @placeholder = "Nhập ID Khoa Ngành" })
+                        </div>
+                        <div class="col-md-5">
+                            @Html.TextBox("DepartmentName", ViewBag.DepartmentName as string, new { @class = "form-control", @placeholder = "Nhập tên Khoa Ngành" })
+                        </div>
+                        <div class="col-md-2">
+                            @Html.Button("Tìm kiếm", "btn btn-primary", "btnTimKiem", "fa fa-search-plus")
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-button">
+                    @Html.Button("Thêm Mới Khoa Ngành", "btn btn-primary", "btnAdd", "fa fa-plus")
+                    @Html.Button("Xóa Khoa Ngành", "btn btn-danger", "btnDel", "fa fa-trash-o")
+                    @Html.Button("Hiển Thị Danh Sách Sinh Viên", "btn btn-primary", "btnSinhVie", "&raquo")
+                    @Html.Button("Hiển Thị Danh Sách Lớp Học", "btn btn-primary", "btnLopHoc", "&raquo")
+                </div>
+            </div>
+            <div class="form-group">
+                @if (TempData["StatusMessage"] != null)
+                {
+                    <div id="Tempdata">
+                        <h4>
+
+                            @TempData["StatusMessage"]
+                        </h4>
+
+                    </div>
+                }
+                else
+                {
+                    <div id="Tempdata" hidden>
+                        <h4>
+
+                            @TempData["StatusMessage"]
+                        </h4>
+
+                    </div>
+                }
+            </div>
+            <div class="form-group">
+                @Html.Grid(Model).Columns(column =>
+           {
+               column.For(m => Html.htmlCheckBox("cbxItem", m.DepartmentID)).Named(Html.htmlCheckBox("cbxList").ToString()).Attributes(style => "width:5%");
+               column.For(m => m.DepartmentID).Named("ID Khoa Ngành").Attributes(style => "width: 10%");
+               column.For(m => Html.ActionLink(m.DepartmentName, "Add", new { Id = m.DepartmentID })).Named("Mã Khoa Ngành").Attributes(style => "width:10%");
+               column.For(m => m.DepartmentName).Named("Tên Khoa Ngành").Attributes(style => "width:30%");
+               column.For(m => m.Status == true ? "Còn sử dụng" : "Không sử dụng").Named("Trạng thái").Attributes(style => "width:20%");
+               column.For(m => new MvcHtmlString("<a onclick='XoaDuLieu(" + m.DepartmentID + ")'>Xóa</a>")).Named("Trạng thái").Attributes(style => "width:20%");
+           }).Empty("Chưa có dữ Khoa Ngành")
+
+            </div>
+            <div class="form-group">
+                @Html.PagedListPager(Model, PageCurrent => @Url.Action("Index", new { PageCurrent = PageCurrent, DepartmentID = ViewBag.DepartmentID, DepartmentName = ViewBag.DepartmentName }), PagedListRenderOptions.PageNumbersOnly)
+            </div>
+        }
+    </div>
+
+<div id="Create" class="btnThemMoi">
+    <div class="btn_plus">
+        <div class="ctask_ttip">
+            <span class="label label-default">Thêm mới Khoa Ngành</span>
+        </div>
+        <a>
+            <img src="/Content/Images/plusct.png" class="add_icn">
+        </a>
+    </div>
+</div>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script language="javascript" type="text/javascript">
+
+    $(document).ready(function () {
+        $('#btnTimKiem').on("click", function () {
+            $('#formview form').submit();
+        });
+
+        $('#btnDel').click(function () {
+           var checked = $("input:checked[name='cbxItem']");
+            if (checked.length > 0) {
+                $("#formview form").attr('action', '@Url.Action("Delete")');
+                $("#formview form").submit();
+                }
+                else {
+                alert("Bạn phải chọn khoa ngành cần xóa");
+                }
+            });
+        $('#Create').click(function () {
+                window.location = '@Url.Action("Add")';
+                });
+        $('#btnAdd').click(function () {
+                window.location = '@Url.Action("Add")';
+        });
+        $('#Tempdata').hide(4200);
+        $('#btnSinhVien').click(function () {
+            window.location = 'https://localhost:44306/Student';
+        })
+        $('#btnLopHoc').click(function () {
+            window.location = 'https://localhost:44306/ClassRoom';
+        })
+    });
+
+          function XoaDuLieu(id) {
+                console.log(id);
+                }
+</script>
+
